@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="map" style="width:600px;height:400px;"></div>
+
+</body>
+<script loading="async"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR3FVKoE4t-H4yFqcGLC70uep_Vb6w3JA&libraries=drawing"></script>
+<script>
+    function getAtonaPolygon() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: { lat: 53.551086, lng: 9.993682 }, // Atona, Hamburg coordinates
+        });
+
+        const atonapolygon = new google.maps.Polygon({
+            paths:
+                [
+                    { lat: 53.774, lng: 9.19 },
+                    { lat: 53.466, lng: 9.118 },
+                    { lat: 53.321, lng: 9.757 },
+                    { lat: 53.774, lng: 9.19 },
+                ],
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            editable: false, // Set to true if you want to edit the polygon
+        });
+
+        atonapolygon.setMap(map);
+
+        // Define how to get the polygon coordinates
+        downloadPolygon = () => {
+            const path = atonapolygon.getPath().getArray();
+            const coords = [];
+            path.forEach((latLng) => {
+                coords.push({ lat: latLng.lat(), lng: latLng.lng() });
+            });
+            console.log(coords); // This will print the polygon coordinates to the console
+        };
+
+        //  Call the download function (optional)
+        downloadPolygon();
+    }
+
+</script>
+
+<script>
+    getAtonaPolygon();
+</script>
+
+</html>
